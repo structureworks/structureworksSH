@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="sale_order_portal_content_inherit" name="Add new Fields on Sale Portal" inherit_id="sale.sale_order_portal_content" priority="50">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div class="row">
+                <div class="col-lg-6">
+                    <strong>Rendering:</strong><br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <t t-if="sale_order.x_studio_rendering_1">
+                        <a t-attf-href="/web/content/#{sale_order.x_studio_rendering_1.attachment_id.id}?download=true&amp;access_token=#{sale_order.x_studio_rendering_1.attachment_id.access_token}">
+                            <div class=''>
+                                <t t-raw='sale_order.x_studio_rendering_1.name'/>
+                                <i class="fa fa-download" style="height:10px;width:50px;margin-left:20px;margin-top:5px;"/>
+                            </div>
+                        </a>
+                    </t>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <t t-if="sale_order.x_studio_rendering_sign_off">
+                        I have reviewed and approved Rendering
+                        <input type="hidden" id="rendering_text" name="rendering_text" t-att-value="sale_order.rendering_sign"/>
+                        <t t-if="sale_order.rendering_sign">
+                            <img t-att-src="image_data_uri(sale_order.rendering_sign)" style="max-height: 4cm; max-width: 8cm;"/>
+                        </t>
+                        <t t-else="">
+                            <t t-call="portal.signature_form">
+                                <t t-set="call_url" t-value="sale_order.get_portal_url(suffix='/approve_sign_rendering')"/>
+                                <t t-set="default_name" t-value="sale_order.partner_id.name"/>
+                            </t>
+                        </t>
+                        <input type="hidden" id="rendering_bool" name="rendering_bool" t-att-value="sale_order.x_studio_rendering_sign_off"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-6">
+                    <strong>Shop Drawing:</strong><br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <t t-if="sale_order.x_studio_shop_drawing">
+                        <a t-attf-href="/web/content/#{sale_order.x_studio_shop_drawing.attachment_id.id}?download=true&amp;access_token=#{sale_order.x_studio_shop_drawing.attachment_id.access_token}">
+                            <div class=''>
+                                <t t-raw='sale_order.x_studio_shop_drawing.name'/>
+                                <i class="fa fa-download" style="height:10px;width:50px;margin-left:20px;margin-top:5px;"/>
+                            </div>
+                        </a>
+                    </t>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <t t-if="sale_order.x_studio_drawing_sign_off">
+                        I have reviewed and approved Drawing
+                        <input type="hidden" id="drawing_text" name="drawing_text" t-att-value="sale_order.drawing_sign"/>
+                        <t t-if="sale_order.drawing_sign">
+                            <img t-att-src="image_data_uri(sale_order.drawing_sign)" style="max-height: 4cm; max-width: 8cm;"/>
+                        </t>
+                        <t t-else="">
+                            <t t-call="portal.signature_form">
+                                <t t-set="call_url" t-value="sale_order.get_portal_url(suffix='/approve_sign_drawing')"/>
+                                <t t-set="default_name" t-value="sale_order.partner_id.name"/>
+                            </t>
+                        </t>
+                        <input type="hidden" id="drawing_bool" name="drawing_text" t-att-value="sale_order.x_studio_drawing_sign_off"/>
+                    </t>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <strong><span id="error_text" class="bg-danger" name="error_text"/></strong>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+</odoo>
