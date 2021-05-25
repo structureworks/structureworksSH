@@ -25,3 +25,16 @@ class ResPartner(models.Model):
             return super(ResPartner, self).name_search(name, args, operator, limit)
         else:
             return super(ResPartner, self).name_search(name, args, operator, limit)
+
+
+class CrmTeam(models.Model):
+    _inherit = 'crm.team'
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        if self._context.get('sales_person'):
+            member = self.env['team.user'].search([('user_id', '=', self._context.get('sales_person'))])
+            args += [('team_user_ids', 'in', member.ids)]
+            return super(CrmTeam, self).name_search(name, args, operator, limit)
+        else:
+            return super(CrmTeam, self).name_search(name, args, operator, limit)
