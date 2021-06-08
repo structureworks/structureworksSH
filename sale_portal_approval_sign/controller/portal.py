@@ -63,3 +63,10 @@ class CustomerPortal(CustomerPortal):
             'force_refresh': True,
             'redirect_url': order_sudo.get_portal_url(),
         }
+
+    @http.route(['/write_partner_industry/'], type='http', methods=['POST'], auth="public", csrf=False)
+    def write_partner_industry(self, partner_id, industry_id, **kw):
+        if partner_id:
+            partner = request.env['res.partner'].sudo().browse(int(partner_id))
+            partner.sudo().write({'industry_id': industry_id})
+        return False
