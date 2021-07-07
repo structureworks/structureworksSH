@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
                                 max_width=1024, max_height=1024)
 
 
-class ResPartner(models.Model):
+class ResUsers(models.Model):
     _inherit = 'res.users'
 
     @api.model
@@ -22,9 +22,9 @@ class ResPartner(models.Model):
         if self._context.get('from_sales_team'):
             teams = self.env['crm.team'].search([])
             args += [('id', 'in', teams.team_user_ids.mapped('user_id').ids)]
-            return super(ResPartner, self).name_search(name, args, operator, limit)
+            return super(ResUsers, self).name_search(name, args, operator, limit)
         else:
-            return super(ResPartner, self).name_search(name, args, operator, limit)
+            return super(ResUsers, self).name_search(name, args, operator, limit)
 
 
 class CrmTeam(models.Model):
@@ -38,3 +38,20 @@ class CrmTeam(models.Model):
             return super(CrmTeam, self).name_search(name, args, operator, limit)
         else:
             return super(CrmTeam, self).name_search(name, args, operator, limit)
+
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    def default_get(self, fields):
+        res = super(ResPartner, self).default_get(fields)
+        if res.get('type') == 'other':
+            res['type'] = 'contact'
+        teams = self.env['crm.team'].search([])
+        if self._uid in teams.team_user_ids.mapped('user_id').ids:
+            res['user_id'] = self._uid
+        else:
+            if res.get('parent_id'):
+                parent = self.browse(res.get('parent_id'))
+                res['user_id'] = parent.user_id.id
+        return res
