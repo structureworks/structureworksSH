@@ -12,6 +12,7 @@ This module used to Approval for a Rendering/Drawing Approval.
     """,
     'depends': ['portal', 'sale'],
     'data': [
+        'data/ir_model_fields.xml',
         'views/sale_order_view.xml',
         'views/sale_portal_template.xml',
     ],
