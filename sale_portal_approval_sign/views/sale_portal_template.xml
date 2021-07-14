@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
+    <template id="assets_backend_inherit_sale" inherit_id="web.assets_backend" name="Sale backend assets">
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/sale_portal_approval_sign/static/src/js/product_discount_widget.js"/>
+        </xpath>
+    </template>
+
     <template id="sale_order_portal_content_inherit" name="Add new Fields on Sale Portal" inherit_id="sale.sale_order_portal_content" priority="50">
         <xpath expr="//div[@id='informations']" position="after">
             <t t-if="sale_order.x_studio_rendering_1">
