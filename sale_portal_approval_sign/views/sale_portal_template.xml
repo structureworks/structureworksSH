@@ -7,6 +7,16 @@
         </xpath>
     </template>
 
+    <template id="sale_order_portal_template_inherit" name="Sales Order Portal Template" inherit_id="sale.sale_order_portal_template" priority="50">
+        <xpath expr="//form[@id='accept']//li[@t-if='sale_order.payment_term_id']" position="after">
+            <li><span>I have read and agree to the Terms &amp; Conditions.</span></li>
+        </xpath>
+
+        <xpath expr="//div[hasclass('modal-content')]//li[@t-if='sale_order.payment_term_id']" position="after">
+            <li><span>I have read and agree to the Terms &amp; Conditions.</span></li>
+        </xpath>
+    </template>
+
     <template id="sale_order_portal_content_inherit" name="Add new Fields on Sale Portal" inherit_id="sale.sale_order_portal_content" priority="50">
         <xpath expr="//div[@id='informations']" position="after">
             <t t-if="sale_order.x_studio_rendering_1">
