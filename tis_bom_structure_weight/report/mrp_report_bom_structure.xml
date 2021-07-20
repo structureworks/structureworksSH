@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="report_mrp_bom_weight_and_volume" inherit_id="mrp.report_mrp_bom">
+        <xpath expr="//table/thead/tr/th[hasclass('o_mrp_prod_cost')]" position="before">
+            <th class="text-right">Weight</th>
+            <th class="text-right">Volume</th>
+        </xpath>
+        <xpath expr="//table/tbody/tr/td[hasclass('o_mrp_prod_cost')]" position="before">
+            <t t-if="data.get('product')">
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(data['product'].weight * data['bom_qty'],2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="data['product'].weight_uom_name"/>
+                    </span>
+                </td>
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(data['product'].volume * data['bom_qty'],2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="data['product'].volume_uom_name"/>
+                    </span>
+                </td>
+            </t>
+            <t t-else="">
+                <td/>
+                <td/>
+            </t>
+        </xpath>
+        <xpath expr="//table/tfoot/tr/td[5]" position="before">
+            <t t-if="data.get('product')">
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(data['total_weight']/data['bom_qty'],2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="data['product'].weight_uom_name"/>
+                    </span>
+                </td>
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(data['total_volume']/data['bom_qty'],2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="data['product'].volume_uom_name"/>
+                    </span>
+                </td>
+            </t>
+            <t t-else="">
+                <td/>
+                <td/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_bom_line_weight_and_volume" inherit_id="mrp.report_mrp_bom_line">
+        <xpath expr="//tr/td[hasclass('o_mrp_prod_cost')]" position="before">
+            <t t-if="l.get('product')">
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(l['product'].weight * l.get('prod_qty'),2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="l['product'].weight_uom_name"/>
+                    </span>
+                </td>
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(l['product'].volume * l.get('prod_qty'),2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="l['product'].volume_uom_name"/>
+                    </span>
+                </td>
+            </t>
+            <t t-else="">
+                <td/>
+                <td/>
+            </t>
+        </xpath>
+        <xpath expr="//t[3]/tr/td[hasclass('o_mrp_prod_cost')]" position="before">
+            <td/>
+            <td/>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_bom_pdf_line_cw" inherit_id="mrp.report_mrp_bom_pdf_line">
+        <xpath expr="//tr/td[hasclass('o_mrp_prod_cost')]" position="before">
+            <t t-if="l.get('product')">
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(l['product'].weight * l.get('quantity'),2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="l['product'].weight_uom_name"/>
+                    </span>
+                </td>
+                <td class="text-right">
+                    <span>
+                        <t t-esc="round(l['product'].volume * l.get('quantity'),2)"/>
+                    </span>
+                    <span>
+                        <t t-esc="l['product'].volume_uom_name"/>
+                    </span>
+                </td>
+            </t>
+            <t t-else="">
+                <td/>
+                <td/>
+            </t>
+        </xpath>
+
+    </template>
+    <template id="report_mrp_operation_line_volume_weight" inherit_id="mrp.report_mrp_operation_line">
+        <xpath expr="//t[2]/tr/td[hasclass('o_mrp_prod_cost')]" position="before">
+            <td/>
+            <td/>
+        </xpath>
+    </template>
+
+</odoo>
