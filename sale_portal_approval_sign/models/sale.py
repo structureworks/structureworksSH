@@ -7,7 +7,7 @@ from odoo import api, fields, models, _
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    state = fields.Selection(selection_add=[('sale', 'Pre Confirmed'), ('sale',)])
+    state = fields.Selection(selection_add=[('pre_confirmed', 'Pre Confirmed'), ('sale',)])
     rendering_sign = fields.Image('Rendering sign', help='Signature received through the portal.', copy=False, attachment=True,
                                   max_width=1024, max_height=1024)
     drawing_sign = fields.Image('Drawing sign', help='Signature received through the portal.', copy=False,
