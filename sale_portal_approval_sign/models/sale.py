@@ -7,12 +7,19 @@ from odoo import api, fields, models, _
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    state = fields.Selection(selection_add=[('pre_confirmed', 'Pre Confirmed'), ('sale', 'Sales Order')])
+    state = fields.Selection(selection_add=[('pre_confirmed', 'Pre Confirmed'), ('sale',)])
     rendering_sign = fields.Image('Rendering sign', help='Signature received through the portal.', copy=False, attachment=True,
                                   max_width=1024, max_height=1024)
     drawing_sign = fields.Image('Drawing sign', help='Signature received through the portal.', copy=False,
                                 attachment=True,
                                 max_width=1024, max_height=1024)
+
+    @api.onchange('pricelist_id', 'order_line')
+    def _onchange_pricelist_id(self):
+        if self.order_line and self.pricelist_id and self._origin.pricelist_id != self.pricelist_id:
+            self.show_update_pricelist = True
+        else:
+            self.show_update_pricelist = False
 
 
 class ResUsers(models.Model):
