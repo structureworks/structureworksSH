@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
                                 attachment=True,
                                 max_width=1024, max_height=1024)
 
-   @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
+    @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
     def _onchange_discount(self):
         if not (self.product_id and self.product_uom and
                 self.order_id.partner_id and self.order_id.pricelist_id and
