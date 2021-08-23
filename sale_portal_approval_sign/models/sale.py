@@ -13,7 +13,18 @@ class SaleOrder(models.Model):
     drawing_sign = fields.Image('Drawing sign', help='Signature received through the portal.', copy=False,
                                 attachment=True,
                                 max_width=1024, max_height=1024)
-
+    
+    
+    @api.onchange('pricelist_id', 'order_line')
+    def _onchange_pricelist_id(self):
+        if self.order_line and self.pricelist_id and self._origin.pricelist_id != self.pricelist_id:
+            self.show_update_pricelist = True
+        else:
+            self.show_update_pricelist = False
+            
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+            
     @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
     def _onchange_discount(self):
         if not (self.product_id and self.product_uom and
@@ -22,7 +33,6 @@ class SaleOrder(models.Model):
                 self.env.user.has_group('product.group_discount_per_so_line')):
             return
 
-#         self.discount = 0.0
         product = self.product_id.with_context(
             lang=self.order_id.partner_id.lang,
             partner=self.order_id.partner_id,
@@ -46,16 +56,10 @@ class SaleOrder(models.Model):
                     self.order_id.company_id or self.env.company, self.order_id.date_order or fields.Date.today())
             discount = (new_list_price - price) / new_list_price * 100
             if (discount > 0 and new_list_price > 0) or (discount < 0 and new_list_price < 0):
-                self.discount = discount
-    
-    
-    @api.onchange('pricelist_id', 'order_line')
-    def _onchange_pricelist_id(self):
-        if self.order_line and self.pricelist_id and self._origin.pricelist_id != self.pricelist_id:
-            self.show_update_pricelist = True
-        else:
-            self.show_update_pricelist = False
-
+                self.discount = discount          
+            
+            
+            
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
