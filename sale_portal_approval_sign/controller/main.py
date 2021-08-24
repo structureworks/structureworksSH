@@ -64,7 +64,7 @@ class WebsiteSaleFormEx(WebsiteSaleForm):
             'countries': country.get_website_sale_countries(mode=mode[1]),
         }
         return res
-    
+
     def _checkout_form_save(self, mode, checkout, all_values):
         Partner = request.env['res.partner']
         if mode[0] == 'new':
@@ -162,13 +162,10 @@ class WebsiteSaleFormEx(WebsiteSaleForm):
 
     @http.route(['/shop/address'], type='http', methods=['GET', 'POST'], auth="public", website=True, sitemap=False)
     def address(self, **kw):
-        print("\n\nkw------------>", kw)
         file = request.httprequest.files.getlist('x_studio_company_verification')
         if file:
             data = file[0].read()
-            print("\n\nattachments------------>", base64.b64encode(data))
             kw.update({'x_studio_company_verification': base64.b64encode(data)})
-        print("\n\nkw------------>", kw)
         Partner = request.env['res.partner'].with_context(show_address=1).sudo()
         order = request.website.sale_get_order()
 
