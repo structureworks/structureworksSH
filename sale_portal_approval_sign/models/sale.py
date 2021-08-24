@@ -22,6 +22,43 @@ class SaleOrder(models.Model):
         else:
             self.show_update_pricelist = False
             
+    @api.depends('state', 'order_line.invoice_status')
+    def _get_invoice_status(self):
+        """
+        Compute the invoice status of a SO. Possible statuses:
+        - no: if the SO is not in status 'sale' or 'done', we consider that there is nothing to
+          invoice. This is also the default value if the conditions of no other status is met.
+        - to invoice: if any SO line is 'to invoice', the whole SO is 'to invoice'
+        - invoiced: if all SO lines are invoiced, the SO is invoiced.
+        - upselling: if all SO lines are invoiced or upselling, the status is upselling.
+        """
+        unconfirmed_orders = self.filtered(lambda so: so.state not in ['sale', 'done','pre_confirmed'])
+        unconfirmed_orders.invoice_status = 'no'
+        confirmed_orders = self - unconfirmed_orders
+        if not confirmed_orders:
+            return
+        line_invoice_status_all = [
+            (d['order_id'][0], d['invoice_status'])
+            for d in self.env['sale.order.line'].read_group([
+                    ('order_id', 'in', confirmed_orders.ids),
+                    ('is_downpayment', '=', False),
+                    ('display_type', '=', False),
+                ],
+                ['order_id', 'invoice_status'],
+                ['order_id', 'invoice_status'], lazy=False)]
+        for order in confirmed_orders:
+            line_invoice_status = [d[1] for d in line_invoice_status_all if d[0] == order.id]
+            if order.state not in ('sale', 'done','pre_confirmed'):
+                order.invoice_status = 'no'
+            elif any(invoice_status == 'to invoice' for invoice_status in line_invoice_status):
+                order.invoice_status = 'to invoice'
+            elif line_invoice_status and all(invoice_status == 'invoiced' for invoice_status in line_invoice_status):
+                order.invoice_status = 'invoiced'
+            elif line_invoice_status and all(invoice_status in ('invoiced', 'upselling') for invoice_status in line_invoice_status):
+                order.invoice_status = 'upselling'
+            else:
+                order.invoice_status = 'no'
+            
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
             
@@ -56,7 +93,38 @@ class SaleOrderLine(models.Model):
                     self.order_id.company_id or self.env.company, self.order_id.date_order or fields.Date.today())
             discount = (new_list_price - price) / new_list_price * 100
             if (discount > 0 and new_list_price > 0) or (discount < 0 and new_list_price < 0):
-                self.discount = discount          
+                self.discount = discount
+                
+    @api.depends('state', 'product_uom_qty', 'qty_delivered', 'qty_to_invoice', 'qty_invoiced')
+    def _compute_invoice_status(self):
+        """
+        Compute the invoice status of a SO line. Possible statuses:
+        - no: if the SO is not in status 'sale' or 'done', we consider that there is nothing to
+          invoice. This is also hte default value if the conditions of no other status is met.
+        - to invoice: we refer to the quantity to invoice of the line. Refer to method
+          `_get_to_invoice_qty()` for more information on how this quantity is calculated.
+        - upselling: this is possible only for a product invoiced on ordered quantities for which
+          we delivered more than expected. The could arise if, for example, a project took more
+          time than expected but we decided not to invoice the extra cost to the client. This
+          occurs onyl in state 'sale', so that when a SO is set to done, the upselling opportunity
+          is removed from the list.
+        - invoiced: the quantity invoiced is larger or equal to the quantity ordered.
+        """
+        precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+        for line in self:
+            if line.state not in ('sale', 'done') and line.order_id.state!='pre_confirmed':
+                line.invoice_status = 'no'
+            elif line.is_downpayment and line.untaxed_amount_to_invoice == 0:
+                line.invoice_status = 'invoiced'
+            elif not float_is_zero(line.qty_to_invoice, precision_digits=precision):
+                line.invoice_status = 'to invoice'
+            elif line.state == 'sale' and line.product_id.invoice_policy == 'order' and\
+                    float_compare(line.qty_delivered, line.product_uom_qty, precision_digits=precision) == 1:
+                line.invoice_status = 'upselling'
+            elif float_compare(line.qty_invoiced, line.product_uom_qty, precision_digits=precision) >= 0:
+                line.invoice_status = 'invoiced'
+            else:
+                line.invoice_status = 'no'
             
             
             
