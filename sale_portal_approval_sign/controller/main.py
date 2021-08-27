@@ -1,3 +1,4 @@
+import logging
 import base64
 from werkzeug.exceptions import Forbidden, NotFound
 
@@ -5,6 +6,8 @@ from odoo import fields, http, SUPERUSER_ID, tools, _
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSaleForm
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class WebsiteSaleFormEx(WebsiteSaleForm):
