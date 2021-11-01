@@ -1,0 +1,4 @@
+[submodule "structureworks_customer_modules"]
+	path = structureworks_customer_modules
+	url = git@github.com:structureworks/structureworks_customer_modules.git
+	branch = 14.0
