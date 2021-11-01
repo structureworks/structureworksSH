@@ -7,3 +7,8 @@
 	path = tiny_apps
 	url = git@github.com:structureworks/tiny_apps.git
 	branch = 14.0
+
+[submodule "structureworks"]
+	path = structureworks
+	url = git@github.com:structureworks/structureworks.git
+	branch = 14.0
