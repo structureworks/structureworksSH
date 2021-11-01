@@ -2,3 +2,8 @@
 	path = structureworks_customer_modules
 	url = git@github.com:structureworks/structureworks_customer_modules.git
 	branch = 14.0
+
+[submodule "tiny_apps"]
+	path = tiny_apps
+	url = git@github.com:structureworks/tiny_apps.git
+	branch = 14.0
