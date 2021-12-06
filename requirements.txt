@@ -1,0 +1,2 @@
+sentry-sdk              # Sentry
+raven==6.10.0           # Sentry
