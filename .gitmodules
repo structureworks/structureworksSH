@@ -12,3 +12,7 @@
 	path = structureworks
 	url = git@github.com:structureworks/structureworks.git
 	branch = 14.0
+[submodule "server-tools"]
+	path = server-tools
+	url = git@github.com:odoo-sh/server-tools.git
+	branch = 14.0
