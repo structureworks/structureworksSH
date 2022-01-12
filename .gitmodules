@@ -16,3 +16,8 @@
 	path = server-tools
 	url = git@github.com:odoo-sh/server-tools.git
 	branch = 14.0
+
+[submodule "sod_sale_payment_method/sod_sale_payment_method"]
+	path = sod_sale_payment_method/sod_sale_payment_method
+	url = git@github.com:odoo-sh/sod_sale_payment_method.git
+	branch = 14.0
