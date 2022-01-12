@@ -21,3 +21,8 @@
 	path = sod_sale_payment_method/sod_sale_payment_method
 	url = git@github.com:odoo-sh/sod_sale_payment_method.git
 	branch = 14.0
+
+[submodule "credit-management"]
+	path = credit-management
+	url = git@github.com:odoo-sh/credit-management.git
+	branch = 14.0
