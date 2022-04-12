@@ -26,3 +26,11 @@
 	path = credit-management
 	url = git@github.com:odoo-sh/credit-management.git
 	branch = 14.0
+[submodule "structureworks_paid_apps"]
+	path = structureworks_paid_apps
+	url = git@github.com:structureworks/structureworks_paid_apps.git
+	branch = 14.0
+[submodule "CybroAddons"]
+	path = CybroAddons
+	url = git@github.com:CybroOdoo/CybroAddons.git
+	branch = 14.0
