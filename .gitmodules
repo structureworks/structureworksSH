@@ -34,3 +34,8 @@
 	path = CybroAddons
 	url = git@github.com:CybroOdoo/CybroAddons.git
 	branch = 14.0
+
+[submodule "mail_display_external_recipients"]
+	path = mail_display_external_recipients
+	url = git@github.com:odoo-sh/mail_display_external_recipients.git
+	branch = 14.0
