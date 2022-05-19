@@ -39,3 +39,7 @@
 	path = mail_display_external_recipients
 	url = git@github.com:odoo-sh/mail_display_external_recipients.git
 	branch = 14.0
+[submodule "purchase-vendorbill-advance"]
+	path = purchase-vendorbill-advance
+	url = git@github.com:structureworks/purchase-vendorbill-advance.git
+	branch = 14.0
