@@ -43,3 +43,7 @@
 	path = purchase-vendorbill-advance
 	url = git@github.com:structureworks/purchase-vendorbill-advance.git
 	branch = 14.0
+[submodule "partner_ups_check_address"]
+	path = partner_ups_check_address
+	url = git@github.com:odoo-sh/partner_ups_check_address.git
+	branch = 14.0
