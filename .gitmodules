@@ -47,3 +47,7 @@
 	path = partner_ups_check_address
 	url = git@github.com:odoo-sh/partner_ups_check_address.git
 	branch = 14.0
+[submodule "report-print-send"]
+	path = report-print-send
+	url = git@github.com:OCA/report-print-send.git
+	branch = 14.0
