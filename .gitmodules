@@ -51,3 +51,11 @@
 	path = report-print-send
 	url = git@github.com:OCA/report-print-send.git
 	branch = 14.0
+[submodule "L10n-Usa"]
+	path = L10n-Usa
+	url = git@github.com:odoo-sh/L10n-Usa.git
+	branch = 14.0
+[submodule "bank-payment"]
+	path = bank-payment
+	url = git@github.com:odoo-sh/bank-payment.git
+	branch = 14.0
