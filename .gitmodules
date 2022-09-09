@@ -59,3 +59,19 @@
 	path = bank-payment
 	url = git@github.com:odoo-sh/bank-payment.git
 	branch = 14.0
+[submodule "payment_ach_sale"]
+	path = payment_ach_sale
+	url = git@github.com:odoo-sh/payment_ach_sale.git
+	branch = 14.0
+[submodule "website_sale_order_sign"]
+	path = website_sale_order_sign
+	url = git@github.com:odoo-sh/website_sale_order_sign.git
+	branch = 14.0
+[submodule "mrp_maintenance_scheduler"]
+	path = mrp_maintenance_scheduler
+	url = git@github.com:odoo-sh/mrp_maintenance_scheduler.git
+	branch = 14.0
+[submodule "vendor_bill_payment_approval"]
+	path = vendor_bill_payment_approval
+	url = git@github.com:odoo-sh/vendor_bill_payment_approval.git
+	branch = 14.0
