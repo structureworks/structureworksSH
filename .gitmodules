@@ -75,3 +75,11 @@
 	path = vendor_bill_payment_approval
 	url = git@github.com:odoo-sh/vendor_bill_payment_approval.git
 	branch = 14.0
+[submodule "e-commerce"]
+	path = e-commerce
+	url = git@github.com:odoo-sh/e-commerce.git
+	branch = 14.0
+[submodule "delivery_print_shipping_label"]
+	path = delivery_print_shipping_label
+	url = git@github.com:odoo-sh/delivery_print_shipping_label.git
+	branch = 14.0
