@@ -83,3 +83,7 @@
 	path = delivery_print_shipping_label
 	url = git@github.com:odoo-sh/delivery_print_shipping_label.git
 	branch = 14.0
+[submodule "portal_sale_charge_payment_fee"]
+	path = portal_sale_charge_payment_fee
+	url = git@github.com:odoo-sh/portal_sale_charge_payment_fee.git
+	branch = 14.0
