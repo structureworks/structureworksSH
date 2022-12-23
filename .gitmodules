@@ -87,3 +87,6 @@
 	path = portal_sale_charge_payment_fee
 	url = git@github.com:odoo-sh/portal_sale_charge_payment_fee.git
 	branch = 14.0
+[submodule "one2many_pager_alignment"]
+	path = one2many_pager_alignment
+	url = git@github.com:odoo-sh/one2many_pager_alignment.git
