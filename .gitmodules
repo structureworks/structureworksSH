@@ -90,3 +90,7 @@
 [submodule "one2many_pager_alignment"]
 	path = one2many_pager_alignment
 	url = git@github.com:odoo-sh/one2many_pager_alignment.git
+[submodule "helpdesk_sign_request_document"]
+	path = helpdesk_sign_request_document
+	url = git@github.com:odoo-sh/helpdesk_sign_request_document.git
+	branch = 14.0
