@@ -94,3 +94,7 @@
 	path = helpdesk_sign_request_document
 	url = git@github.com:odoo-sh/helpdesk_sign_request_document.git
 	branch = 14.0
+[submodule "Manufacture"]
+	path = Manufacture
+	url = git@github.com:odoo-sh/Manufacture.git
+	branch = 14.0
