@@ -98,3 +98,15 @@
 	path = Manufacture
 	url = git@github.com:odoo-sh/Manufacture.git
 	branch = 14.0
+[submodule "partner_last_activity_datetime"]
+	path = partner_last_activity_datetime
+	url = git@github.com:odoo-sh/partner_last_activity_datetime.git
+	branch = 14.0
+[submodule "portal_invoice_charge_payment_fee"]
+	path = portal_invoice_charge_payment_fee
+	url = git@github.com:odoo-sh/portal_invoice_charge_payment_fee.git
+	branch = 14.0
+[submodule "website"]
+	path = website
+	url = git@github.com:OCA/website.git
+	branch = 14.0
