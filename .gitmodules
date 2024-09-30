@@ -106,7 +106,3 @@
 	path = portal_invoice_charge_payment_fee
 	url = git@github.com:odoo-sh/portal_invoice_charge_payment_fee.git
 	branch = 14.0
-[submodule "website"]
-	path = website
-	url = git@github.com:OCA/website.git
-	branch = 14.0
