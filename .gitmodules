@@ -110,3 +110,7 @@
 	path = website
 	url = git@github.com:odoo-sh/website.git
 	branch = 14.0
+[submodule "sale_payment_token_partner"]
+	path = sale_payment_token_partner
+	url = git@github.com:odoo-sh/sale_payment_token_partner.git
+	branch = 14.0
